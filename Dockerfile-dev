@@ -1,5 +1,5 @@
 # base 3.9.7 jdk 21
-FROM maven:3.9-eclipse-temurin-21-alpine AS build_stage
+FROM maven:3.9.10-eclipse-temurin-24-alpine AS build_stage
 
 WORKDIR /app_build
 

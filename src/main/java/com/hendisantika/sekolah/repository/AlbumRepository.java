@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.repository;
 
-import com.hendisantika.sekolah.entity.Album;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.UUID;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import com.hendisantika.sekolah.entity.Album;
+import com.hendisantika.sekolah.repository.base.CustomJpaRepository;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,5 +17,5 @@ import java.util.UUID;
  * Time: 07.53
  */
 @Repository
-public interface AlbumRepository extends JpaRepository<Album, UUID> {
+public interface AlbumRepository extends CustomJpaRepository<Album, UUID> {
 }

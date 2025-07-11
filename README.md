@@ -97,7 +97,7 @@ docker run --rm \
 -e PGDATA=/var/lib/postgresql/data/pgdata \
 -v "$PWD/sekolah-data:/var/lib/postgresql/data" \
 -p 5432:5432 \
-postgres:15
+postgres:17
 ```
 
 ### Cara konek ke Postgres Database via Docker
@@ -116,7 +116,7 @@ Ada 2 opsi untuk menjalankan aplikasi ini, via Docker atau via Docker-compose
 
 ### Menjalankan aplikasi via Docker
 
-Di sini saya berasumsi bahawa JDK8, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
+Di sini saya berasumsi bahawa JDK 24, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
 
 - Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
 

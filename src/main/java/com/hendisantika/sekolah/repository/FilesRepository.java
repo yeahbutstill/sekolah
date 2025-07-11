@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.repository;
 
-import com.hendisantika.sekolah.entity.Files;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.UUID;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import com.hendisantika.sekolah.entity.Files;
+import com.hendisantika.sekolah.repository.base.CustomJpaRepository;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,5 +17,5 @@ import java.util.UUID;
  * Time: 18.31
  */
 @Repository
-public interface FilesRepository extends JpaRepository<Files, UUID> {
+public interface FilesRepository extends CustomJpaRepository<Files, UUID> {
 }

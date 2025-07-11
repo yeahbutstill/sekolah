@@ -1,6 +1,8 @@
 package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Kategori;
+import com.hendisantika.sekolah.repository.base.CustomJpaRepository;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,6 @@ import java.util.UUID;
  * Time: 14.23
  */
 @Repository
-public interface KategoriRepository extends JpaRepository<Kategori, UUID> {
-    Optional<Kategori> findById(UUID kategoriId);
+public interface KategoriRepository extends CustomJpaRepository<Kategori, UUID> {
+  Optional<Kategori> findById(UUID kategoriId);
 }
