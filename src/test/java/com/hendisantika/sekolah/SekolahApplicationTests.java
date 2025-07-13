@@ -18,23 +18,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 @ActiveProfiles("test-containers")
 class SekolahApplicationTests {
-  @Autowired
-  private GuruRepository guruRepository;
+    @Autowired
+    private GuruRepository guruRepository;
 
-  @BeforeEach
-  void init() {
-    guruRepository.deleteAll();
-  }
+    @BeforeEach
+    void init() {
+        guruRepository.deleteAll();
+    }
 
-  @Test
-  void shouldCreateOnePerson() {
-    final var guru = guruRepository
-        .saveAll(List.of(new Guru("212", "Itadori Yuji", "L", "Tokyo", LocalDate.now(), "Dukun",
-            "photo", "photoBase64", "filename", new byte[(int) "Itadori Yuji".length()])));
-    assertEquals(1, guru.size());
-    final var person = guru.get(0);
-    assertEquals("Itadori Yuji", person.getNama());
-    assertEquals("212", person.getNip());
-  }
+    @Test
+    void shouldCreateOnePerson() {
+        final var guru = guruRepository.saveAll(List.of(new Guru("212", "Itadori Yuji", "L", "Tokyo", LocalDate.now(), "Dukun",
+                "photo", "photoBase64", "filename", new byte[(int) "Itadori Yuji".length()]))
+        );
+        assertEquals(1, guru.size());
+        final var person = guru.get(0);
+        assertEquals("Itadori Yuji", person.getNama());
+        assertEquals("212", person.getNip());
+    }
 
 }

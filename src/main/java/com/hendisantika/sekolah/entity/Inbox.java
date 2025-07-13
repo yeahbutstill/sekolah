@@ -7,8 +7,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-
-import com.hendisantika.sekolah.entity.base.AuditTableEntity;
+import org.hibernate.annotations.Where;
 
 import java.util.UUID;
 
@@ -21,31 +20,34 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 15.19
  */
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_inbox")
 @SQLDelete(sql = "UPDATE tbl_inbox SET status_record='INACTIVE' WHERE id=? AND version=?")
+@Where(clause = "status_record='ACTIVE'")
 public class Inbox extends AuditTableEntity<UUID> {
-  @Column(name = "nama")
-  @Size(max = 40)
-  private String nama;
+    @Column(name = "nama")
+    @Size(max = 40)
+    private String nama;
 
-  @Column(name = "email")
-  @Size(max = 60)
-  @Email
-  private String email;
+    @Column(name = "email")
+    @Size(max = 60)
+    @Email
+    private String email;
 
-  @Column(name = "kontak")
-  @Size(max = 20)
-  private String kontak;
+    @Column(name = "kontak")
+    @Size(max = 20)
+    private String kontak;
 
-  @Column(name = "pesan")
-  private String pesan;
+    @Column(name = "pesan")
+    private String pesan;
 
-  @Column(name = "status")
-  @PositiveOrZero
-  private int status;
+    @Column(name = "status")
+    @PositiveOrZero
+    private int status;
 }

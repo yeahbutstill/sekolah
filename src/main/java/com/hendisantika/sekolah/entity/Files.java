@@ -6,8 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-
-import com.hendisantika.sekolah.entity.base.AuditTableEntity;
+import org.hibernate.annotations.Where;
 
 import java.util.UUID;
 
@@ -20,37 +19,40 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 15.19
  */
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_files")
 @SQLDelete(sql = "UPDATE tbl_files SET status_record='INACTIVE' WHERE id=? AND version=?")
+@Where(clause = "status_record='ACTIVE'")
 public class Files extends AuditTableEntity<UUID> {
-  @Column(name = "judul")
-  @Size(max = 120)
-  private String judul;
+    @Column(name = "judul")
+    @Size(max = 120)
+    private String judul;
 
-  @Column(name = "deskripsi")
-  private String deskripsi;
+    @Column(name = "deskripsi")
+    private String deskripsi;
 
-  @Column(name = "author")
-  @Size(max = 100)
-  private String author;
+    @Column(name = "author")
+    @Size(max = 100)
+    private String author;
 
-  @Column(name = "filename")
-  @Size(max = 50)
-  private String filename;
+    @Column(name = "filename")
+    @Size(max = 50)
+    private String filename;
 
-  @Column(name = "file_content")
-  private byte[] fileContent;
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
-  @Column(name = "download")
-  @PositiveOrZero
-  private int download;
+    @Column(name = "download")
+    @PositiveOrZero
+    private int download;
 
-  @Column(name = "data")
-  @Size(max = 120)
-  private String data;
+    @Column(name = "data")
+    @Size(max = 120)
+    private String data;
 }

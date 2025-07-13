@@ -8,8 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLDelete;
-
-import com.hendisantika.sekolah.entity.base.AuditTableEntity;
+import org.hibernate.annotations.Where;
 
 import java.util.UUID;
 
@@ -22,44 +21,47 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 15.19
  */
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_album")
 @SQLDelete(sql = "UPDATE tbl_album SET status_record='INACTIVE' WHERE id=? AND version=?")
+@Where(clause = "status_record='ACTIVE'")
 public class Album extends AuditTableEntity<UUID> {
-  @ManyToOne
-  @JoinColumn(name = "pengguna_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  @ToString.Exclude
-  @NotNull
-  private Pengguna pengguna;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pengguna_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
+    @NotNull
+    private Pengguna pengguna;
 
-  @Column(name = "nama")
-  @Size(max = 50)
-  private String nama;
+    @Column(name = "nama")
+    @Size(max = 50)
+    private String nama;
 
-  @Column(name = "count")
-  @PositiveOrZero
-  private int count;
+    @Column(name = "count")
+    @PositiveOrZero
+    private int count;
 
-  @Column(name = "cover")
-  @Size(max = 40)
-  private String cover;
+    @Column(name = "cover")
+    @Size(max = 40)
+    private String cover;
 
-  @Column(name = "photo_base64")
-  private String photoBase64;
+    @Column(name = "photo_base64")
+    private String photoBase64;
 
-  @Column(name = "filename")
-  @Size(max = 50)
-  private String filename;
+    @Column(name = "filename")
+    @Size(max = 50)
+    private String filename;
 
-  @Column(name = "file_content")
-  private byte[] fileContent;
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
-  @Column(name = "author")
-  @Size(max = 60)
-  private String author;
+    @Column(name = "author")
+    @Size(max = 60)
+    private String author;
 }

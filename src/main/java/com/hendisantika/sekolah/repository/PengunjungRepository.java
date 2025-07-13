@@ -1,8 +1,6 @@
 package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Pengunjung;
-import com.hendisantika.sekolah.repository.base.CustomJpaRepository;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +16,5 @@ import java.util.UUID;
  * Time: 18.48
  */
 @Repository
-public interface PengunjungRepository extends CustomJpaRepository<Pengunjung, UUID> {
+public interface PengunjungRepository extends JpaRepository<Pengunjung, UUID> {
 }

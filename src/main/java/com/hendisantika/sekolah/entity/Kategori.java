@@ -5,8 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-
-import com.hendisantika.sekolah.entity.base.AuditTableEntity;
+import org.hibernate.annotations.Where;
 
 import java.util.UUID;
 
@@ -19,15 +18,18 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 15.19
  */
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_kategori")
 @SQLDelete(sql = "UPDATE tbl_kategori SET status_record='INACTIVE' WHERE id=? AND version=?")
+@Where(clause = "status_record='ACTIVE'")
 public class Kategori extends AuditTableEntity<UUID> {
-  @Column(name = "nama")
-  @Size(max = 30)
-  private String nama;
+    @Column(name = "nama")
+    @Size(max = 30)
+    private String nama;
 }
