@@ -1,13 +1,20 @@
 package com.hendisantika.sekolah.entity;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,20 +34,20 @@ import java.util.UUID;
 @ToString
 @Entity(name = "tbl_log_aktivitas")
 @SQLDelete(sql = "UPDATE tbl_log_aktivitas SET status_record='INACTIVE' WHERE id=? AND version=?")
-@Where(clause = "status_record='ACTIVE'")
+@SQLRestriction(value = "status_record='ACTIVE'")
 public class LogAktivitas extends AuditTableEntity<UUID> {
-    @Column(name = "nama")
-    @Size(max = 200)
-    private String nama;
+  @Column(name = "nama")
+  @Size(max = 200)
+  private String nama;
 
-    @Column(name = "ip")
-    @Size(max = 20)
-    private String ip;
+  @Column(name = "ip")
+  @Size(max = 20)
+  private String ip;
 
-    @Column(name = "icon")
-    private byte[] icon;
+  @Column(name = "icon")
+  private byte[] icon;
 
-    @Column(name = "jenis_icon")
-    @Size(max = 50)
-    private String jenisIcon;
+  @Column(name = "jenis_icon")
+  @Size(max = 50)
+  private String jenisIcon;
 }

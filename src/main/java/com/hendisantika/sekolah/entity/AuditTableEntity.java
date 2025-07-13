@@ -25,41 +25,41 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ToString
 @EntityListeners({
-        AuditingEntityListener.class,
-        UpdatedCreatedAtListener.class
+    AuditingEntityListener.class,
+    UpdatedCreatedAtListener.class
 })
 // ini dimana T itu harus extends Serializable
 public abstract class AuditTableEntity<T extends Serializable> implements UpdatedCreatedAtAware {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
-    private T id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id")
+  private T id;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    @Size(max = 50)
-    private String createdBy;
+  @Column(name = "created_by")
+  @CreatedBy
+  @Size(max = 50)
+  private String createdBy;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+  @Column(name = "created_on")
+  @CreatedDate
+  private LocalDateTime createdOn;
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    @Size(max = 50)
-    private String modifiedBy;
+  @Column(name = "modified_by")
+  @LastModifiedBy
+  @Size(max = 50)
+  private String modifiedBy;
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
+  @Column(name = "modified_on")
+  @LastModifiedDate
+  private LocalDateTime modifiedOn;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_record")
-    private STATUSRECORD statusRecord = STATUSRECORD.ACTIVE;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status_record")
+  private STATUSRECORD statusRecord = STATUSRECORD.ACTIVE;
 
-    @Version
-    private Long version;
+  @Version
+  private Long version;
 
 }

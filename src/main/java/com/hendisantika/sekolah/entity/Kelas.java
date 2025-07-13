@@ -1,18 +1,25 @@
 package com.hendisantika.sekolah.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,15 +39,15 @@ import java.util.UUID;
 @ToString
 @Entity(name = "tbl_kelas")
 @SQLDelete(sql = "UPDATE tbl_kelas SET status_record='INACTIVE' WHERE id=? AND version=?")
-@Where(clause = "status_record='ACTIVE'")
+@SQLRestriction(value = "status_record='ACTIVE'")
 public class Kelas extends AuditTableEntity<UUID> {
-    @OneToMany(mappedBy = "kelas", fetch = FetchType.LAZY)
-    @NotNull
-    @ToString.Exclude
-    @Builder.Default
-    private Set<Siswa> siswa = new HashSet<>();
+  @OneToMany(mappedBy = "kelas", fetch = FetchType.LAZY)
+  @NotNull
+  @ToString.Exclude
+  @Builder.Default
+  private Set<Siswa> siswa = new HashSet<>();
 
-    @Column(name = "nama")
-    @Size(max = 25)
-    private String nama;
+  @Column(name = "nama")
+  @Size(max = 25)
+  private String nama;
 }

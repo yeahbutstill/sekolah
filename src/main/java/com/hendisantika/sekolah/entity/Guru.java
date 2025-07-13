@@ -1,14 +1,21 @@
 package com.hendisantika.sekolah.entity;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
-import java.time.LocalDate;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,42 +35,42 @@ import java.util.UUID;
 @ToString
 @Entity(name = "tbl_guru")
 @SQLDelete(sql = "UPDATE tbl_guru SET status_record='INACTIVE' WHERE id=? AND version=?")
-@Where(clause = "status_record='ACTIVE'")
+@SQLRestriction(value = "status_record='ACTIVE'")
 public class Guru extends AuditTableEntity<UUID> {
-    @Column(name = "nip")
-    @Size(max = 30)
-    private String nip;
+  @Column(name = "nip")
+  @Size(max = 30)
+  private String nip;
 
-    @Column(name = "nama")
-    @Size(max = 70)
-    private String nama;
+  @Column(name = "nama")
+  @Size(max = 70)
+  private String nama;
 
-    @Column(name = "jenkel")
-    @Size(max = 2)
-    private String jenkel;
+  @Column(name = "jenkel")
+  @Size(max = 2)
+  private String jenkel;
 
-    @Column(name = "tmp_lahir")
-    @Size(max = 80)
-    private String tmpLahir;
+  @Column(name = "tmp_lahir")
+  @Size(max = 80)
+  private String tmpLahir;
 
-    @Column(name = "tgl_lahir")
-    private LocalDate tglLahir;
+  @Column(name = "tgl_lahir")
+  private LocalDate tglLahir;
 
-    @Column(name = "mapel")
-    @Size(max = 120)
-    private String mapel;
+  @Column(name = "mapel")
+  @Size(max = 120)
+  private String mapel;
 
-    @Column(name = "photo")
-    @Size(max = 40)
-    private String photo;
+  @Column(name = "photo")
+  @Size(max = 40)
+  private String photo;
 
-    @Column(name = "photo_base64")
-    private String photoBase64;
+  @Column(name = "photo_base64")
+  private String photoBase64;
 
-    @Column(name = "filename")
-    @Size(max = 50)
-    private String filename;
+  @Column(name = "filename")
+  @Size(max = 50)
+  private String filename;
 
-    @Column(name = "file_content")
-    private byte[] fileContent;
+  @Column(name = "file_content")
+  private byte[] fileContent;
 }

@@ -1,13 +1,20 @@
 package com.hendisantika.sekolah.entity;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,9 +34,9 @@ import java.util.UUID;
 @ToString
 @Entity(name = "tbl_kategori")
 @SQLDelete(sql = "UPDATE tbl_kategori SET status_record='INACTIVE' WHERE id=? AND version=?")
-@Where(clause = "status_record='ACTIVE'")
+@SQLRestriction(value = "status_record='ACTIVE'")
 public class Kategori extends AuditTableEntity<UUID> {
-    @Column(name = "nama")
-    @Size(max = 30)
-    private String nama;
+  @Column(name = "nama")
+  @Size(max = 30)
+  private String nama;
 }

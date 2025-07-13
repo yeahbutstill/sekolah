@@ -1,15 +1,22 @@
 package com.hendisantika.sekolah.entity;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,29 +36,29 @@ import java.util.UUID;
 @ToString
 @Entity(name = "tbl_komentar")
 @SQLDelete(sql = "UPDATE tbl_komentar SET status_record='INACTIVE' WHERE id=? AND version=?")
-@Where(clause = "status_record='ACTIVE'")
+@SQLRestriction(value = "status_record='ACTIVE'")
 public class Komentar extends AuditTableEntity<UUID> {
-    @Column(name = "nama")
-    @Size(max = 200)
-    private String nama;
+  @Column(name = "nama")
+  @Size(max = 200)
+  private String nama;
 
-    @Column(name = "email")
-    @Email
-    @Size(max = 60)
-    private String email;
+  @Column(name = "email")
+  @Email
+  @Size(max = 60)
+  private String email;
 
-    @Column(name = "isi")
-    @Size(max = 120)
-    private String isi;
+  @Column(name = "isi")
+  @Size(max = 120)
+  private String isi;
 
-    @Column(name = "status")
-    @Size(max = 2)
-    private String status;
+  @Column(name = "status")
+  @Size(max = 2)
+  private String status;
 
-    @Column(name = "tulisan_id")
-    private UUID tulisanId;
+  @Column(name = "tulisan_id")
+  private UUID tulisanId;
 
-    @Column(name = "parent")
-    @PositiveOrZero
-    private int parent;
+  @Column(name = "parent")
+  @PositiveOrZero
+  private int parent;
 }
