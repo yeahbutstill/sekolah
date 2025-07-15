@@ -28,17 +28,17 @@ public class SystemLoggedInUserAuditorAware implements AuditorAware<String> {
 //    return Optional.ofNullable(System.getProperty("user.name"));
 //  }
 
-  @Override
-  public Optional<String> getCurrentAuditor() {
-    Optional<User> user = Optional.ofNullable(SecurityContextHolder.getContext())
-            .map(SecurityContext::getAuthentication)
-            .filter(Authentication::isAuthenticated)
-            .map(Authentication::getPrincipal)
-            .map(User.class::cast);
-    if (user.isPresent()) {
-      User userLogin = user.get();
-      return Optional.ofNullable(userLogin.getUsername());
+    @Override
+    public Optional<String> getCurrentAuditor() {
+        Optional<User> user = Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(SecurityContext::getAuthentication)
+                .filter(Authentication::isAuthenticated)
+                .map(Authentication::getPrincipal)
+                .map(User.class::cast);
+        if (user.isPresent()) {
+            User userLogin = user.get();
+            return Optional.ofNullable(userLogin.getUsername());
+        }
+        return Optional.empty();
     }
-    return Optional.empty();
-  }
 }

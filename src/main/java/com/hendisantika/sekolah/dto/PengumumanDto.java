@@ -1,10 +1,7 @@
 package com.hendisantika.sekolah.dto;
 
-import com.hendisantika.sekolah.enumeration.STATUSRECORD;
-import jakarta.persistence.Version;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**

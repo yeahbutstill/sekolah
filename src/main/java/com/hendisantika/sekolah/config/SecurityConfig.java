@@ -88,7 +88,7 @@ public class SecurityConfig {
                 //inside the login form
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/ignore1", "/ignore2" , "/assets/**", "/css/**", "/img/**",
+                        .requestMatchers("/ignore1", "/ignore2", "/assets/**", "/css/**", "/img/**",
                                 "/js**", "/plugins/**", "/theme/**", "/templates/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()
                         .requestMatchers(PRIVATE_LINK).hasAnyAuthority("ADMIN", "USER")

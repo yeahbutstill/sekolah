@@ -1,21 +1,16 @@
 package com.hendisantika.sekolah.entity;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
-
+import com.hendisantika.sekolah.common.entity.AuditTableEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,10 +32,10 @@ import lombok.ToString;
 @SQLDelete(sql = "UPDATE role SET status_record='INACTIVE' WHERE id=? AND version=?")
 @SQLRestriction(value = "status_record='ACTIVE'")
 public class Role extends AuditTableEntity<UUID> {
-  private String role;
+    private String role;
 
-  @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-  @ToString.Exclude
-  private List<Pengguna> users;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Pengguna> users = new ArrayList<>();
 
 }

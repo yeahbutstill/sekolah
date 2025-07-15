@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:tc:postgresql:16.2-alpine3.19:///sekolah
+    url: jdbc:tc:postgresql:17-alpine:///sekolah
     username: yuji
     password: itadori
   jpa:

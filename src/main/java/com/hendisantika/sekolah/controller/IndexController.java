@@ -39,12 +39,7 @@ import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
 @RequestMapping("/")
 public class IndexController {
 
-    @Value("${cookie.maxAge}")
-    private Integer cookieMaxAge;
-    private final ConstructorIndex constructorIndex;
-
     private static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
-
     private static final String[] IP_HEADER_CANDIDATES = {
             "X-Forwarded-For",
             "Proxy-Client-IP",
@@ -58,6 +53,9 @@ public class IndexController {
             "HTTP_VIA",
             "REMOTE_ADDR"
     };
+    private final ConstructorIndex constructorIndex;
+    @Value("${cookie.maxAge}")
+    private Integer cookieMaxAge;
 
     public IndexController(ConstructorIndex constructorIndex) {
         this.constructorIndex = constructorIndex;
@@ -169,7 +167,7 @@ public class IndexController {
     public String showGuru(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "GURU");
         log.info("Menampilkan data untuk Halaman Guru.");
-        List<Guru> guruList =constructorIndex.guruRepository().findAll();
+        List<Guru> guruList = constructorIndex.guruRepository().findAll();
         model.addAttribute("guruList", guruList);
 
         return "/guru";

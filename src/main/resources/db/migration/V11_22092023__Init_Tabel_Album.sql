@@ -1,5 +1,3 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE IF NOT EXISTS tbl_album(
     id           UUID           DEFAULT uuid_generate_v4() NOT NULL,
     pengguna_id  UUID           NOT NULL,

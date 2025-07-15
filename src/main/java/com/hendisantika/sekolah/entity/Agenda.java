@@ -1,21 +1,15 @@
 package com.hendisantika.sekolah.entity;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
-
+import com.hendisantika.sekolah.common.entity.AuditTableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,28 +31,28 @@ import lombok.ToString;
 @SQLDelete(sql = "UPDATE tbl_agenda SET status_record='INACTIVE' WHERE id=? AND version=?")
 @SQLRestriction(value = "status_record='ACTIVE'")
 public class Agenda extends AuditTableEntity<UUID> {
-  @Column(name = "nama")
-  @Size(max = 200)
-  private String nama;
+    @Column(name = "nama")
+    @Size(max = 200)
+    private String nama;
 
-  @Column(name = "deskripsi")
-  private String deskripsi;
+    @Column(name = "deskripsi")
+    private String deskripsi;
 
-  @Column(name = "mulai")
-  private LocalDate mulai;
+    @Column(name = "mulai")
+    private LocalDate mulai;
 
-  @Column(name = "selesai")
-  private LocalDate selesai;
+    @Column(name = "selesai")
+    private LocalDate selesai;
 
-  @Column(name = "tempat")
-  @Size(max = 90)
-  private String tempat;
+    @Column(name = "tempat")
+    @Size(max = 90)
+    private String tempat;
 
-  @Column(name = "waktu")
-  @Size(max = 30)
-  private String waktu;
+    @Column(name = "waktu")
+    @Size(max = 30)
+    private String waktu;
 
-  @Column(name = "keterangan")
-  @Size(max = 200)
-  private String keterangan;
+    @Column(name = "keterangan")
+    @Size(max = 200)
+    private String keterangan;
 }

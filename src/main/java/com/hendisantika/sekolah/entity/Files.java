@@ -1,21 +1,15 @@
 package com.hendisantika.sekolah.entity;
 
-import java.util.UUID;
-
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
-
+import com.hendisantika.sekolah.common.entity.AuditTableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,29 +31,29 @@ import lombok.ToString;
 @SQLDelete(sql = "UPDATE tbl_files SET status_record='INACTIVE' WHERE id=? AND version=?")
 @SQLRestriction(value = "status_record='ACTIVE'")
 public class Files extends AuditTableEntity<UUID> {
-  @Column(name = "judul")
-  @Size(max = 120)
-  private String judul;
+    @Column(name = "judul")
+    @Size(max = 120)
+    private String judul;
 
-  @Column(name = "deskripsi")
-  private String deskripsi;
+    @Column(name = "deskripsi")
+    private String deskripsi;
 
-  @Column(name = "author")
-  @Size(max = 100)
-  private String author;
+    @Column(name = "author")
+    @Size(max = 100)
+    private String author;
 
-  @Column(name = "filename")
-  @Size(max = 50)
-  private String filename;
+    @Column(name = "filename")
+    @Size(max = 50)
+    private String filename;
 
-  @Column(name = "file_content")
-  private byte[] fileContent;
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
-  @Column(name = "download")
-  @PositiveOrZero
-  private int download;
+    @Column(name = "download")
+    @PositiveOrZero
+    private int download;
 
-  @Column(name = "data")
-  @Size(max = 120)
-  private String data;
+    @Column(name = "data")
+    @Size(max = 120)
+    private String data;
 }

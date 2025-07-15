@@ -66,7 +66,7 @@ public class AgendaController {
     }
 
     @GetMapping("/edit/{agendaId}")
-    public String tampilkanFormEditAgenda(@PathVariable("agendaId")UUID agendaId, Model model) {
+    public String tampilkanFormEditAgenda(@PathVariable("agendaId") UUID agendaId, Model model) {
         log.info("Menampilkan Form Edit Agenda");
         model.addAttribute(AGENDA.getDescription(), agendaRepository.findById(agendaId));
 

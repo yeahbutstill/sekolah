@@ -9,5 +9,8 @@ import java.util.UUID;
 
 @Repository
 public interface PenggunaRepository extends JpaRepository<Pengguna, UUID> {
+    //    @Query("FROM Pengguna WHERE username LIKE '%' || ?1 || '%'")
     Optional<Pengguna> findByUsername(String username);
+
+    Optional<Pengguna> findByEmail(String mail);
 }

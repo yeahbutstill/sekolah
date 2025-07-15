@@ -1,32 +1,18 @@
 package com.hendisantika.sekolah.entity;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-
+import com.hendisantika.sekolah.common.entity.AuditTableEntity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.springframework.data.annotation.CreatedDate;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,81 +35,78 @@ import lombok.ToString;
 @SQLDelete(sql = "UPDATE tbl_pengguna SET status_record='INACTIVE' WHERE id=? AND version=?")
 @SQLRestriction(value = "status_record='ACTIVE'")
 public class Pengguna extends AuditTableEntity<UUID> {
-  @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-      CascadeType.REFRESH })
-  @JoinTable(name = "tbl_pengguna_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private List<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(name = "tbl_pengguna_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
-  @Column(name = "fullname")
-  @Size(max = 50)
-  private String fullname;
+    @Column(name = "fullname")
+    @Size(max = 50)
+    @NotBlank
+    @NotEmpty
+    private String fullname;
 
-  @Column(name = "moto")
-  @Size(max = 120)
-  private String moto;
+    @Column(name = "moto")
+    @Size(max = 120)
+    private String moto;
 
-  @Column(name = "jenkel")
-  @Size(max = 2)
-  private String jenkel;
+    @Column(name = "jenkel")
+    @Size(max = 1)
+    @NotBlank
+    @NotEmpty
+    private String jenkel;
 
-  @Column(name = "username", unique = true)
-  @Size(max = 30)
-  private String username;
+    @Column(name = "username", unique = true)
+    @Size(max = 30)
+    @NotBlank
+    @NotEmpty
+    private String username;
 
-  @Column(name = "password")
-  @Size(max = 75)
-  private String password;
+    @Column(name = "password")
+    @Size(max = 75)
+    @NotBlank
+    @NotEmpty
+    private String password;
 
-  @Column(name = "tentang")
-  private String tentang;
+    @Column(name = "tentang")
+    private String tentang;
 
-  @Column(name = "email", unique = true)
-  @Email
-  @Size(max = 50)
-  private String email;
+    @Column(name = "email", unique = true)
+    @Email
+    @Size(max = 50)
+    @NotBlank
+    @NotEmpty
+    private String email;
 
-  @Column(name = "nohp")
-  @Size(max = 20)
-  private String nohp;
+    @Column(name = "nohp")
+    @Size(max = 20)
+    @NotBlank
+    @NotEmpty
+    private String nohp;
 
-  @Column(name = "facebook")
-  @Size(max = 50)
-  private String facebook;
+    @Column(name = "facebook")
+    @Size(max = 50)
+    private String facebook;
 
-  @Column(name = "twitter")
-  @Size(max = 50)
-  private String witter;
+    @Column(name = "twitter")
+    @Size(max = 50)
+    private String twitter;
 
-  @Column(name = "linkedin")
-  @Size(max = 50)
-  private String linkedin;
+    @Column(name = "linkedin")
+    @Size(max = 50)
+    private String linkedin;
 
-  @Column(name = "status")
-  @PositiveOrZero
-  private int status;
+    @Column(name = "photo")
+    @Size(max = 40)
+    private String photo;
 
-  @Column(name = "level")
-  @Size(max = 3)
-  private String level;
+    @Column(name = "photo_base64")
+    private String photoBase64;
 
-  @Column(name = "photo")
-  @Size(max = 40)
-  private String photo;
+    @Column(name = "filename")
+    @Size(max = 40)
+    private String filename;
 
-  @Column(name = "photo_base64")
-  private String photoBase64;
-
-  @Column(name = "filename")
-  @Size(max = 40)
-  private String filename;
-
-  @Column(name = "file_content")
-  private byte[] fileContent;
-
-  @Column(name = "active")
-  private boolean active;
-
-  @CreatedDate
-  @Column(name = "register")
-  private LocalDateTime register;
+    @Column(name = "file_content")
+    private byte[] fileContent;
 }
