@@ -20,7 +20,8 @@ public enum ALLCONSTANT {
     TULISANLIST("tulisanList"),
     TULISAN("tulisan"),
     RIE_ADMIN_TUL("redirect:/admin/tulisan"),
-    KAT_LIST("kategoriList");
+    KAT_LIST("kategoriList"),
+    RIE_ADMIN_AGENDA("redirect:/admin/agenda");
 
     private final String description;
 

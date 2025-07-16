@@ -20,8 +20,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode // Pertimbangkan callSuper = true jika Anda ingin menyertakan field parent
 @ToString
 @EntityListeners({
-        AuditingEntityListener.class, // @CreatedBy/@LastModifiedBy dari Spring Data JPA
-        UpdatedCreatedAtListener.class // Ini listener kustom untuk @CreatedDate/@LastModifiedDate
+        UpdatedCreatedAtListener.class // Ini listener kustom untuk @CreatedDate/@LastModifiedDate/@CreatedBy/@LastModifiedBy
 })
 // ini dimana T itu harus extends Serializable
 public abstract class AuditTableEntity<T extends Serializable> {
@@ -32,7 +31,6 @@ public abstract class AuditTableEntity<T extends Serializable> {
     private T id;
 
     @Column(name = "created_by")
-    @CreatedBy
     @Size(max = 50)
     private String createdBy;
 
@@ -41,7 +39,6 @@ public abstract class AuditTableEntity<T extends Serializable> {
     private LocalDateTime createdOn;
 
     @Column(name = "modified_by")
-    @LastModifiedBy
     @Size(max = 50)
     private String modifiedBy;
 
