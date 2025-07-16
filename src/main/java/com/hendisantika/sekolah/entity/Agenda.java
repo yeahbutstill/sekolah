@@ -38,12 +38,6 @@ public class Agenda extends AuditTableEntity<UUID> {
     @Column(name = "deskripsi")
     private String deskripsi;
 
-    @Column(name = "mulai")
-    private LocalDate mulai;
-
-    @Column(name = "selesai")
-    private LocalDate selesai;
-
     @Column(name = "tempat")
     @Size(max = 90)
     private String tempat;

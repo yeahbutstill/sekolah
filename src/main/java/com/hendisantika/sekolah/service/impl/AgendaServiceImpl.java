@@ -49,7 +49,6 @@ public class AgendaServiceImpl implements AgendaService {
                 .orElseThrow(() -> new IllegalArgumentException("Agenda not found with id: " + agendaBaru.getId()));
         agenda.setNama(agendaBaru.getNama());
         agenda.setDeskripsi(agendaBaru.getDeskripsi());
-        agenda.setMulai(agendaBaru.getMulai());
         agenda.setTempat(agendaBaru.getTempat());
         agendaRepository.save(agenda);
     }

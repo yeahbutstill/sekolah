@@ -51,7 +51,7 @@
                 <tr th:each="a, itrStat : ${agendaList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
                     <th scope="row" th:text="${a.nama}">agenda</th>
-                    <td th:text="${#temporals.format(a.mulai, 'dd-MM-yyyy HH:mm')}">tanggal</td>
+                    <td th:text="${#temporals.format(a.createdOn, 'dd-MM-yyyy')}">tanggal</td>
                     <td th:text="${a.tempat}">Tempat</td>
                     <td th:text="${a.waktu}">waktu</td>
                     <td>
