@@ -1,10 +1,22 @@
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          config:
+            annotation:
+              authentication:
+                configuration:
+                  InitializeUserDetailsBeanManagerConfigurer: ERROR
+application:
+  name: sekolah
 spring:
   datasource:
     url: jdbc:postgresql://db:5432/sekolah
     username: sekolah
     password: sekolah_password
   jpa:
-    open-in-view: false
+    open-in-view: true
     show-sql: true
     hibernate:
       ddl-auto: validate
@@ -58,6 +70,7 @@ spring:
 #httpOnly: if true then browser script won't be able to access the cookie
 #secure: if true then the cookie will be sent only over HTTPS connection
 server:
+  port: 8080
   tomcat:
     threads:
       max: 200

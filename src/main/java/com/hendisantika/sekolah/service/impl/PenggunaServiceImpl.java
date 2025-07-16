@@ -132,12 +132,4 @@ public class PenggunaServiceImpl implements PenggunaService {
         penggunaRepository.deleteById(id);
         log.info("Pengguna dengan ID: {} berhasil di-soft delete.", id);
     }
-
-//    public UserDetails loadUserByUsername(String username) {
-//        Pengguna user = penggunaRepository.findByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(username);
-//        }
-//        return new MyUserPrincipal(user);
-//    }
 }

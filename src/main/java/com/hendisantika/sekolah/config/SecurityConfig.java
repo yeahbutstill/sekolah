@@ -1,20 +1,15 @@
 package com.hendisantika.sekolah.config;
 
-import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
-import com.hendisantika.sekolah.service.impl.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.web.PathPatternRequestMatcherBuilderFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.LOGIN;
 
@@ -30,6 +25,7 @@ import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.LOGIN;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private static final String[] PUBLIC_LINK = new String[]{
@@ -40,12 +36,6 @@ public class SecurityConfig {
             "/admin/**"
     };
 
-    private final PenggunaRepository userRepository;
-
-    public SecurityConfig(PenggunaRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -55,29 +45,15 @@ public class SecurityConfig {
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new AuthenticationFailureHandler();
     }
-    /*
-     * Tell Spring Security to use the custom built UserDetailsServiceImpl class
-     *
+
+    /***
+     * Preparing for 7.0
+     * This bean is used to create PathPatternRequestMatcher instances.
+     * @return PathPatternRequestMatcherBuilderFactoryBean
      */
-
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-
-        authProvider.setUserDetailsService(userDetailsServiceBean());
-        authProvider.setPasswordEncoder(passwordEncoder());
-
-        return authProvider;
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsServiceBean() {
-        return new UserDetailsServiceImpl(userRepository);
+    PathPatternRequestMatcherBuilderFactoryBean requestMatcherBuilder() {
+        return new PathPatternRequestMatcherBuilderFactoryBean();
     }
 
     @Bean
@@ -100,13 +76,16 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/admin/dashboard", true)
                         .failureUrl("/login?error")
                 )
-                .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout")
+                .logout(logout -> {
+                            try {
+                                logout
+                                        .logoutRequestMatcher(requestMatcherBuilder().getObject().matcher("/logout"))
+                                        .logoutSuccessUrl("/login?logout");
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 );
-
-        http.authenticationProvider(authenticationProvider());
-
         return http.build();
     }
 
